@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Checked Out Items</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+</head>
+<body>
+    <table class="table table-boardered table-striped active table-hover" id="checked_out_item_table">
+        <tr>
+            <th>First Name</th>
+            <th>Last Name</th>
+            <th>Item Number</th>
+            <th>Item Name</th>
+            <th>Model</th>
+            <th>Status</th>
+
+        </tr>
+
+
+    </table>
+    
+    
+</body>
+</html>
+
+<script>
+    $(document).ready(function(){
+        $.getJSON("/statuscheckdb", function(data){
+            var all_data = '';
+            $.each(data, function(key, value){
+                all_data += '<tr>';
+                all_data += '<td>'+value.firstName+'</td>';
+                all_data += '<td>'+value.lastName+'</td>';
+                all_data += '<td>'+value.itemNumber+'</td>';
+                all_data += '<td>'+value.itemName+'</td>';
+                all_data += '<td>'+value.model+'</td>';
+                all_data += '<td>'+value.chk_status+'</td>';
+            });
+            $('#checked_out_item_table').append(all_data);
+        })
+    })
+
+
+</script>
