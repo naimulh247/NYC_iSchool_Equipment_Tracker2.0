@@ -2,7 +2,7 @@
 
 <head>
     <script type="text/javascript" src='//cdnjs.cloudflare.com/ajax/libs/jquery/1.10.2/jquery.min.js'></script>
-    <!-- <script type="text/javascript" src='./script.js'></script> -->
+    <script type="text/javascript" src='./script.js'></script>
 
     <title>NYC iSchool Data Base Search Demo</title>
 </head>
@@ -28,10 +28,11 @@
                     <input type="text" id="lastName" placeholder="Student Last Name" name="crt_last_name"/>
                     <input type="text" id="parentEmail" placeholder="Parent Email" name="crt_parent_email"/>
                     <input type="text" id="authorized" placeholder="Authorized By" name="crt_authorization"/>
-                    <input type="radio" class= "checkbox" name="ops[]" id="checkIn" onclick="">check in</input>
+                    <input type="radio" class= "checkbox" name="ops[]" id="checkIn" onclick="change2chkin()">check in</input>
                     <input type="radio" class= "checkbox" name="ops[]" id="checkOut"onclick="">check out</input>
-                    <button id="btn" name="submit" onclick="send_data()">Submit</button>
-
+                    <!-- <button id="btn" name="submit">Submit</button> -->
+                     
+                    <input type="submit" name="submit">Submit</input>
                 </div>
         </form>
     
@@ -112,59 +113,73 @@
     <!-- Changing Form action -->
     <script type="text/javascript" src='//cdnjs.cloudflare.com/ajax/libs/jquery/1.10.2/jquery.min.js'></script>
     <script type="text/javascript">
-        
-        function send_data() {
-            
-            if  (document.getElementById('checkOut').checked == true ){
-                // alert("check out has been selected")
-                $('form').submit(function() {
-                     $.ajax({
+        function change2chkin(){
+            $('form').submit(function(){
+                $.ajax({
                         async: false,
                         method: 'POST',
-                        url: '/create_data',
+                        url: '/delete_data',
                         data: $( this ).serialize(),
-                        success: function(data){
-                                    if(data.success == true){ // if true (1)
-                                        setTimeout(function(){// wait for 5 secs(2)
-                                                location.reload(); // then reload the page.(3)
-                                                    }, 5000); 
-                                                            }
-                                    }
+                })
+                
+            })
+        }
+
+
+
+
+        // function send_data() {
+            
+        //     if  (document.getElementById('checkOut').checked == true ){
+        //         // alert("check out has been selected")
+        //         $('form').submit(function() {
+        //              $.ajax({
+        //                 async: false,
+        //                 method: 'POST',
+        //                 url: '/create_data',
+        //                 data: $( this ).serialize(),
+        //                 success: function(data){
+        //                             if(data.success == true){ // if true (1)
+        //                                 setTimeout(function(){// wait for 5 secs(2)
+        //                                         location.reload(); // then reload the page.(3)
+        //                                             }, 5000); 
+        //                                                     }
+        //                             }
                         
                 
-                     })
-                     $.ajax({
-                        async: false,
-                        method: 'POST',
-                        url: '/checkedout',
-                        data: $( this ).serialize(),
+        //              })
+        //              $.ajax({
+        //                 async: false,
+        //                 method: 'POST',
+        //                 url: '/checkedout',
+        //                 data: $( this ).serialize(),
                         
                             
-                             });
-                     })
-                     }
-            else if(document.getElementById('checkIn').checked== true && document.getElementById('checkOut').checked == false){
-                         $('form').submit(function(){
-                             $.ajax({
-                                 async:false,
-                                 method: 'POST',
-                                 url: '/delete_data',
-                                 data: $(this).serialize(),
-                             })
-                             $.ajax({
-                                 async:false,
-                                 method: 'POST',
-                                 url: '/checkedin',
-                                 data: $(this).serialize(),
-                             });
-                         })
-                     }
-                    //  else{
-                    //      alert("Please check if the item is getting checked in or checked out");
-                    //  }
-                     event.preventDefault();
+        //                      });
+        //              })
+        //              }
+        //     else if(document.getElementById('checkIn').checked== true && document.getElementById('checkOut').checked == false){
+        //                  $('form').submit(function(){
+        //                      $.ajax({
+        //                          async:false,
+        //                          method: 'POST',
+        //                          url: '/delete_data',
+        //                          data: $(this).serialize(),
+        //                      })
+        //                      $.ajax({
+        //                          async:false,
+        //                          method: 'POST',
+        //                          url: '/checkedin',
+        //                          data: $(this).serialize(),
+        //                      });
+        //                  })
+        //              }
+        //             //  else{
+        //             //      alert("Please check if the item is getting checked in or checked out");
+        //             //  }
+        //              event.preventDefault();
 
-            }
+        //     }
 
               
         
