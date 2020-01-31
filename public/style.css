@@ -1,0 +1,114 @@
+@import url('https://fonts.googleapis.com/css?family=Montserrat&display=swap');
+
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    /* background-color: #24252A; */
+/*    background-color:#000000	*/;
+}
+
+li, a, button{
+    font-family:"Montserrat", san-serif;
+    font-weight: 500;
+    font-size: 16px;
+    color: #edf0f1;
+    text-decoration: none;
+}
+
+body{
+    background-color: whitesmoke;
+}
+
+
+header{
+    max-height: 100px;
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    padding: 10px;
+    /*background-color: ;*/
+    background: linear-gradient(45deg,#000000,#191D32, #282F44, #453A49 , #6D3B47,#BA2C73, #FF3706);
+    background-size: 600% 100%;
+    animation: gradient 20s linear infinite;
+    animation-direction: alternate;
+
+
+}
+@keyframes gradient {
+	0% {
+		background-position: 0% 50%;
+	}
+	50% {
+		background-position: 100% 50%;
+	}
+	100% {
+		background-position: 0% 50%;
+	}
+}
+
+
+#logo{
+    display: block;
+    cursor: pointer;
+    margin-right:auto;
+    max-height: 100px;
+    max-width: 100px;
+
+
+}
+
+.nav_links{
+    list-style: none;
+}
+
+.nav_links li{
+    display: inline-block;
+    padding: 0px 20px;
+}
+
+.nav_links li a{
+    transition: all 0.3s ease 0s;
+}
+
+.nav_links li a:hover{
+    color: #0088a9;
+}
+button{
+    padding: 9px 30px;
+    /*padding-left: 40px;*/
+    background-color: rgba(0,136,169,1);
+    border:none;
+    border-radius: 100px;
+    justify-content: flex-end;
+    cursor: pointer;
+
+    transition: all 0.3s ease 0s;
+
+}
+
+button:hover{
+        background-color: rgba(0,136,169,.8);
+
+}
+
+
+
+
+#wrapper{
+    display: block;
+
+    position: relative;
+    left: 20rem;
+    top: 1em;
+}
+
+.wrapperstudent{
+    display: block;
+    position: relative;
+
+    top: -12em;
+
+    
+}

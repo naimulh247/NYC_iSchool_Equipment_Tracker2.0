@@ -2,43 +2,103 @@
 
 <head>
     <script type="text/javascript" src='//cdnjs.cloudflare.com/ajax/libs/jquery/1.10.2/jquery.min.js'></script>
-    <!-- <script type="text/javascript" src='./script.js'></script> -->
+    <script type="text/javascript" src='./script.js'></script>
+    <link rel="stylesheet" type="text/css" href="./style.css">
 
-    <title>NYC iSchool Data Base Search Demo</title>
+    <title>NYC iSchool Data Base </title>
 </head>
 
 <body>
-    <h2 id="pageTitle">NYC iSchool Data Base</h2>
-        <form action="" name="FormFill" method="POST" id="fill" > 
-                <div id="itemSearch">
-                    <h6>Item search</h6>
-                    <input type="search" id="search" name="crt_search"/>
-                    <br/>
-                    <input type="text" id="itemname" placeholder="Item Name" name="crt_itemName" />
-                    <br>
-                    <input type="text" id="model" placeholder="Model/Company" name="crt_model"/>
-                    <br>
-                    <input type="text" id="cost" placeholder="Cost" />
-                        
-                </div>
-                <div id="StudentSearch">
-                    <input type="search" id="studentID" />
-                    <input type="text" id="advisor" placeholder="Advisor" name="crtadvisor" />
-                    <input type="text" id="firstName" placeholder="Student First Name" name="crt_first_name"/>
-                    <input type="text" id="lastName" placeholder="Student Last Name" name="crt_last_name"/>
-                    <input type="text" id="parentEmail" placeholder="Parent Email" name="crt_parent_email"/>
-                    <input type="text" id="authorized" placeholder="Authorized By" name="crt_authorization"/>
-                    <input type="radio" class= "checkbox" name="ops[]" id="checkIn" onclick="">check in</input>
-                    <input type="radio" class= "checkbox" name="ops[]" id="checkOut"onclick="">check out</input>
-                    <button id="btn" name="submit" onclick="send_data()">Submit</button>
 
-                </div>
+    <header>
+        <img src='logo.png' id="logo"/>
+    
+    
+    </header>
+        <form action="" name="FormFill" method="POST" id="fill" > 
+                
+                <div id="itemSearch"  >
+                    <div id="wrapper">
+                        <label >Item Number</label>
+                            <br>
+                            
+                        <input type="search" id="search" class="customID" onsubmit="return false;" name="crt_search"/>
+                            <br>
+                            <br>
+                        <label >Item Name</label>
+                            <br>
+                        <input type="text" class="customID" id="itemname"  name="crt_itemName" />
+                            <br>
+                            <br>
+                        <label >Model</p>
+                        <input type="text" id="model" class="customID"  name="crt_model"/>
+                            <br>
+                            <br>
+                        <label >Replacement Cost</label>
+                            <br>
+                        <input type="text" id="cost"  class="customID" />
+                    </div>        
+                    
+                    <div id="StudentSearch">
+                        <div class="wrapperstudent">
+                                <p>Student ID</p>
+                                <input type="search" onkeyup="manage(this)" id="studentID">
+                                <br>
+                                <br>
+                                <p>Advisor</p>
+                                <input type="text" id="advisor" placeholder="Advisor" name="crtadvisor" />
+                                <br>
+                                <br>
+                                <p>Student First Name</p>
+                                <input type="text" id="firstName" placeholder="Student First Name" name="crt_first_name"/>
+                                <br>
+                                <br>
+                                <p>Student Last Name</p>
+                                <input type="text" id="lastName" placeholder="Student Last Name" name="crt_last_name"/>
+                                <br>
+                                <br>
+                                <p>Parent Email</p>
+                                <input type="text" id="parentEmail" placeholder="Parent Email" name="crt_parent_email"/>
+                                <br>
+                                <br>
+                                <p>Authorized By Parents</p>
+                                <input type="text" id="authorized" placeholder="Authorized By" name="crt_authorization"/>
+                                <br>
+                                <br>
+                                <p>Loan Status</p>
+                                <input type="radio" class= "checkbox" name="ops[]" id="checkOut"onclick="change2chkout()" checked>Out to Student</input>
+                                <br>
+                                <input type="radio" class= "checkbox" name="ops[]" id="checkIn" onclick="change2chkin()">Returned</input>
+                                <br>
+                                
+                                <!-- <button id="btn" name="submit">Submit</button> -->
+                                <input type="submit" id="register" value="Submit" disabled />
+
+                                <!-- <input type="button" name="submit" span="submit"></input> -->
+                                <script>
+                                    function manage(studentID){
+                                        var bt = document.getElementById('register');
+                                        if (studentID.value != ''){
+                                            bt.disabled = false;
+                                        }
+                                        else{
+                                            bt.disabled = true;
+                                        }
+                                    }
+                                </script>
+                        </div>
+                    </div>
+                    </div>
         </form>
     
 
     <script type="text/javascript" src='//cdnjs.cloudflare.com/ajax/libs/jquery/1.10.2/jquery.min.js'></script>
     <script type="text/javascript">
-        $('#search').keyup(function() { //when key is pressed in search bar
+        function noenter() {
+            return !(window.event && window.event.keyCode == 13);
+            console.log("enter prevented")    
+        }
+        $('#search').keydown(function() { //when key is pressed in search bar
             var searchTerm = $(this).val(); //val of search bar
             var myExp = new RegExp(searchTerm, "i"); //regular experation
 
@@ -67,6 +127,10 @@
 
             });
         });
+        function noenter() {
+            return !(window.event && window.event.keyCode == 13);
+            console.log("enter prevented")    
+        }
 
         </script>
         <!-- // Student Search Engine: -->
@@ -112,59 +176,120 @@
     <!-- Changing Form action -->
     <script type="text/javascript" src='//cdnjs.cloudflare.com/ajax/libs/jquery/1.10.2/jquery.min.js'></script>
     <script type="text/javascript">
-        
-        function send_data() {
-            
-            if  (document.getElementById('checkOut').checked == true ){
-                // alert("check out has been selected")
-                $('form').submit(function() {
-                     $.ajax({
+//         (function() {
+//             $('form > input').keyup(function() {
+
+//                 var empty = false;
+//                 $('form > input').each(function() {
+//                     if ($(this).val() == '') {
+//                         empty = true;
+//                     }
+//                 });
+
+//                 if (empty) {
+//                     $('#register').attr('disabled', 'disabled');
+//                 } else {
+//                     $('#register').removeAttr('disabled');
+//                 }
+//     });
+// })()
+
+        function change2chkin(){
+            $('form').submit(function(){
+                $.ajax({
+                        async: false,
+                        method: 'POST',
+                        url: '/delete_data',
+                        data: $( this ).serialize(),
+                })
+
+                $.ajax({
+                        async: false,
+                        method: 'POST',
+                        url: '/checkedin',
+                        data: $( this ).serialize(),
+                })
+                
+            })
+        }
+        function change2chkout(){
+            $('form').submit(function(){
+                $.ajax({
                         async: false,
                         method: 'POST',
                         url: '/create_data',
                         data: $( this ).serialize(),
-                        success: function(data){
-                                    if(data.success == true){ // if true (1)
-                                        setTimeout(function(){// wait for 5 secs(2)
-                                                location.reload(); // then reload the page.(3)
-                                                    }, 5000); 
-                                                            }
-                                    }
-                        
-                
-                     })
-                     $.ajax({
+                })
+                $.ajax({
                         async: false,
                         method: 'POST',
                         url: '/checkedout',
                         data: $( this ).serialize(),
+                })
+            
+            })
+        }
+        
+
+
+
+
+
+
+
+
+        // function send_data() {
+            
+        //     if  (document.getElementById('checkOut').checked == true ){
+        //         // alert("check out has been selected")
+        //         $('form').submit(function() {
+        //              $.ajax({
+        //                 async: false,
+        //                 method: 'POST',
+        //                 url: '/create_data',
+        //                 data: $( this ).serialize(),
+        //                 success: function(data){
+        //                             if(data.success == true){ // if true (1)
+        //                                 setTimeout(function(){// wait for 5 secs(2)
+        //                                         location.reload(); // then reload the page.(3)
+        //                                             }, 5000); 
+        //                                                     }
+        //                             }
+                        
+                
+        //              })
+        //              $.ajax({
+        //                 async: false,
+        //                 method: 'POST',
+        //                 url: '/checkedout',
+        //                 data: $( this ).serialize(),
                         
                             
-                             });
-                     })
-                     }
-            else if(document.getElementById('checkIn').checked== true && document.getElementById('checkOut').checked == false){
-                         $('form').submit(function(){
-                             $.ajax({
-                                 async:false,
-                                 method: 'POST',
-                                 url: '/delete_data',
-                                 data: $(this).serialize(),
-                             })
-                             $.ajax({
-                                 async:false,
-                                 method: 'POST',
-                                 url: '/checkedin',
-                                 data: $(this).serialize(),
-                             });
-                         })
-                     }
-                    //  else{
-                    //      alert("Please check if the item is getting checked in or checked out");
-                    //  }
-                     event.preventDefault();
+        //                      });
+        //              })
+        //              }
+        //     else if(document.getElementById('checkIn').checked== true && document.getElementById('checkOut').checked == false){
+        //                  $('form').submit(function(){
+        //                      $.ajax({
+        //                          async:false,
+        //                          method: 'POST',
+        //                          url: '/delete_data',
+        //                          data: $(this).serialize(),
+        //                      })
+        //                      $.ajax({
+        //                          async:false,
+        //                          method: 'POST',
+        //                          url: '/checkedin',
+        //                          data: $(this).serialize(),
+        //                      });
+        //                  })
+        //              }
+        //             //  else{
+        //             //      alert("Please check if the item is getting checked in or checked out");
+        //             //  }
+                    //   event.preventDefault();
 
-            }
+        //     }
 
               
         
