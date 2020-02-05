@@ -113,6 +113,7 @@ router.post('/create_data', (req, res) => {
             return
         }
         console.log("inserted", results.insertedId)
+        res.write('/api')
         res.end()
     })
 
@@ -158,6 +159,7 @@ router.post('/checkedout', (req, res)=>{
             return
         }
         console.log("inserted", results.insertedID)
+        res.write('/api')
         res.end()
     })
 

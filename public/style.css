@@ -97,18 +97,15 @@ button:hover{
 
 
 #wrapper{
-    display: block;
 
     position: relative;
     left: 20rem;
-    top: 1em;
+    /* top: 1em; */
+    z-index: 0;
 }
 
 .wrapperstudent{
-    display: block;
-    position: relative;
-
-    top: -12em;
+    margin-top: -200px;
 
     
 }
