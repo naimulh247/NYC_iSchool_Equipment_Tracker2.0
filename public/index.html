@@ -135,35 +135,38 @@
         $('#studentID').keyup(function() { //when key is pressed in search bar
             var searchTerms = $(this).val(); //val of search bar
             var myExps = new RegExp(searchTerms, "i"); //regular experation
+            if (document.getElementById('studentID') == 13){
+                    $.getJSON('/studentdb', function(data) { //get the json file
 
-            $.getJSON('/studentdb', function(data) { //get the json file
+                        var advisor = "";
+                        var firstname = "";
+                        var lastname = "";
+                        var parentemail = "";
+                        var authorized = "";
+                        $.each(data, function(key, val) {
+                            if (val.StudentID.search(myExps) != -1) { //search for the data in the json file
 
-                var advisor = "";
-                var firstname = "";
-                var lastname = "";
-                var parentemail = "";
-                var authorized = "";
-                $.each(data, function(key, val) {
-                    if (val.StudentID.search(myExps) != -1) { //search for the data in the json file
-
-                        advisor = val.Advisor
-                        firstname = val.FirstName;
-                        lastname = val.LastName;
-                        parentemail = val.ParentEmail;
-                        authorized = val.Authorized;
+                                advisor = val.Advisor
+                                firstname = val.FirstName;
+                                lastname = val.LastName;
+                                parentemail = val.ParentEmail;
+                                authorized = val.Authorized;
 
 
 
-                        
-                    }
-                }); 
-                    $('#advisor').val(advisor);
-                    $('#firstName').val(firstname);
-                    $('#lastName').val(lastname);
-                    $('#parentEmail').val(parentemail);
-                    $('#authorized').val(authorized);
+                                
+                            }
+                        }); 
+                            $('#advisor').val(advisor);
+                            $('#firstName').val(firstname);
+                            $('#lastName').val(lastname);
+                            $('#parentEmail').val(parentemail);
+                            $('#authorized').val(authorized);
 
-            });
+                     });
+                }else{
+                    console.log("ID too short")
+                }
         });
 
 
