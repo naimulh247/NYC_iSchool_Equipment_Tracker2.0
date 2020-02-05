@@ -48,7 +48,9 @@ console.log("Script is Working")
         console.log('it works')
     }
  }
-
+function resetfocus(){
+    document.getElementById('studentID').focus();
+}
 
 //  function mytest()
 // {

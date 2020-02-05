@@ -12,6 +12,15 @@
 
     <header>
         <img src='logo.png' id="logo"/>
+        <nav>
+            <ul class="nav_links">
+                <li><a href="./checkedout.html">Checked Out Items</a></li>
+                <li><a href="./history.html">Item History</a></li>
+                
+                
+
+            </ul>
+        </nav>
     
     
     </header>
@@ -42,7 +51,7 @@
                     <div id="StudentSearch">
                         <div class="wrapperstudent">
                                 <p>Student ID</p>
-                                <input required="required" oninput="changebox()" autofocus="autofocus" type="search"  id="studentID">
+                                <input required="required" oninput="changebox()" onchange="help()" autofocus="autofocus" type="search"  id="studentID">
                                 <br>
                                 <br>
                                 <p>Advisor</p>
@@ -73,8 +82,9 @@
                                 
                                 <!-- <button id="btn" name="submit">Submit</button> -->
                                 <input type="submit" id="register" value="Submit" onclick="checkradio()" onsubmit="" disabled />
-
+                                <input type="reset" onclick="resetfocus()">
                                 <!-- <input type="button" name="submit" span="submit"></input> -->
+                                <input type="date">
                                 <script>
                                     function manage(search){
                                         var bt = document.getElementById('register');
@@ -91,6 +101,7 @@
                     </div>
                     </div>
         </form>
+        <iframe src='./checkedout.html' id= "iframe"></iframe>
     
 
     <script type="text/javascript" src='//cdnjs.cloudflare.com/ajax/libs/jquery/1.10.2/jquery.min.js'></script>
@@ -130,44 +141,44 @@
 
         </script>
         <!-- // Student Search Engine: -->
-    <script type="text/javascript" src='//cdnjs.cloudflare.com/ajax/libs/jquery/1.10.2/jquery.min.js'></script>
+    <script type="text/javascript" src='//cdnjs.cloudflare.com/ajax/libs/jquery/2.0.3/jquery.min.js'></script>
     <script type="text/javascript">
-        $('#studentID').keyup(function() { //when key is pressed in search bar
-            var searchTerms = $(this).val(); //val of search bar
-            var myExps = new RegExp(searchTerms, "i"); //regular experation
-            if (document.getElementById('studentID') == 13){
-                    $.getJSON('/studentdb', function(data) { //get the json file
+        // $('#studentID').keyup(
+            function help() { //when key is pressed in search bar
+                if (document.getElementById('studentID').value.length > 12) {
+                    console.log("umm working?")
+                    var searchTerms = $('#studentID').val(); //val of search bar
+                    var myExps = new RegExp(searchTerms, "i"); //regular experation
+                            $.getJSON('/studentdb', function(data) { //get the json file
 
-                        var advisor = "";
-                        var firstname = "";
-                        var lastname = "";
-                        var parentemail = "";
-                        var authorized = "";
-                        $.each(data, function(key, val) {
-                            if (val.StudentID.search(myExps) != -1) { //search for the data in the json file
+                                var advisor = "";
+                                var firstname = "";
+                                var lastname = "";
+                                var parentemail = "";
+                                var authorized = "";
+                                $.each(data, function(key, val) {
+                                    if (val.StudentID.search(myExps) != -1) { //search for the data in the json file
 
-                                advisor = val.Advisor
-                                firstname = val.FirstName;
-                                lastname = val.LastName;
-                                parentemail = val.ParentEmail;
-                                authorized = val.Authorized;
+                                        advisor = val.Advisor
+                                        firstname = val.FirstName;
+                                        lastname = val.LastName;
+                                        parentemail = val.ParentEmail;
+                                        authorized = val.Authorized;
 
 
 
-                                
-                            }
-                        }); 
-                            $('#advisor').val(advisor);
-                            $('#firstName').val(firstname);
-                            $('#lastName').val(lastname);
-                            $('#parentEmail').val(parentemail);
-                            $('#authorized').val(authorized);
+                                        
+                                    }
+                                }); 
+                                    $('#advisor').val(advisor);
+                                    $('#firstName').val(firstname);
+                                    $('#lastName').val(lastname);
+                                    $('#parentEmail').val(parentemail);
+                                    $('#authorized').val(authorized);
 
-                     });
-                }else{
-                    console.log("ID too short")
+                            });
                 }
-        });
+        };
 
 
     </script>
@@ -194,7 +205,7 @@
 // })()
 
         function checkradio() {
-            mytest();
+            // mytest();
             if(document.getElementById('checkOut').checked == true){
                 console.log("checkout is clicked")
                 $('form').submit(function(){
