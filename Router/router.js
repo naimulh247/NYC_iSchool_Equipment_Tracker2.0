@@ -113,7 +113,6 @@ router.post('/create_data', (req, res) => {
             return
         }
         console.log("inserted", results.insertedId)
-        res.write('/api')
         res.end()
     })
 
@@ -147,11 +146,12 @@ router.post('/checkedout', (req, res)=>{
     const lastName = req.body.crt_last_name
     const itemNumber = req.body.crt_search
     const itemName = req.body.crt_itemName
-    const model= req.body.crt_model
+    const outDate = req.body.crt_dateout
+    const inDate = req.body.crt_datein
     const status = "Checked Out"
 
-    const queryString = "insert into StatusCheckDB.EquipmentStatus (firstName, lastName, itemName, itemNumber, model, chk_status) Value (?,?,?,?,?,?)"
-    statusConnection().query(queryString, [firstName, lastName, itemName, itemNumber, model, status], (err, results, fields)=>{
+    const queryString = "insert into StatusCheckDB.EquipmentStatus (firstName, lastName, itemName, itemNumber, chk_status, dateOut, dateIn) Value (?,?,?,?,?,?,?)"
+    statusConnection().query(queryString, [firstName, lastName, itemName, itemNumber, status, outDate, inDate], (err, results, fields)=>{
         if (err){
             console.log(err)
             console.log("failed to insert data")

@@ -8,6 +8,9 @@
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+    <script src='./tablesorter.js'></script>
+    <!-- <script src='./tablesort.date.min.js'></script> -->
+
 </head>
 <body>
     <table class="table table-boardered table-striped active table-hover" id="checked_out_item_table">
@@ -16,8 +19,9 @@
             <th>Last Name</th>
             <th>Item Number</th>
             <th>Item Name</th>
-            <th>Model</th>
             <th>Status</th>
+            <th>Check Out Date</th>
+            <th id="return">Return By</th>
 
         </tr>
 
@@ -29,6 +33,7 @@
 </html>
 
 <script>
+
     $(document).ready(function(){
         $.getJSON("/statuscheckdb", function(data){
             var all_data = '';
@@ -38,11 +43,13 @@
                 all_data += '<td>'+value.lastName+'</td>';
                 all_data += '<td>'+value.itemNumber+'</td>';
                 all_data += '<td>'+value.itemName+'</td>';
-                all_data += '<td>'+value.model+'</td>';
                 all_data += '<td>'+value.chk_status+'</td>';
+                all_data += '<td>'+value.dateOut+'</td>';
+                all_data += '<td>'+value.dateIn+'</td>';
             });
             $('#checked_out_item_table').append(all_data);
         })
+        $('#checked_out_item_table').tablesorter();
     })
 
 

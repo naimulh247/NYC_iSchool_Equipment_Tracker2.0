@@ -56,3 +56,13 @@ function resetfocus(){
 // {
 //     window.location = "localhost:5000";
 // }
+// let today = new Date().toISOString().substr(0, 10);
+// document.querySelector("#today").valueAsDate = new Date();
+
+// var today = new Date();
+// var date = today.getFullYear()+'-'+(today.getMonth()+1)+'-'+today.getDate();
+// console.log(date)
+// document.getElementById('today').value = date;
+
+// console.log("date")
+

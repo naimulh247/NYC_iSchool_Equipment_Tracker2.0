@@ -28,24 +28,35 @@
                 
                 <div id="itemSearch"  >
                     <div id="wrapper">
-                        <label >Item Number</label>
-                            <br>
+                        <p >Item Number</p>
+                
                             
                         <input type="search" id="search" class="customID" onkeyup="manage(this)" onsubmit="return false;" name="crt_search"/>
                             <br>
                             <br>
-                        <label >Item Name</label>
-                            <br>
+                        <p >Item Name</p>
+                
                         <input type="text" class="customID" id="itemname"  name="crt_itemName" />
                             <br>
                             <br>
-                        <label >Model</p>
+                        <p >Model</p>
                         <input type="text" id="model" class="customID"  name="crt_model"/>
                             <br>
                             <br>
-                        <label >Replacement Cost</label>
-                            <br>
+                        <p >Replacement Cost</p>
+                
                         <input type="text" id="cost"  class="customID" />
+                            <br>
+                            <br>
+                        <p>Check Out Date</p>
+                        <input type="text" id="today" value='' name="crt_dateout">
+                            <br>
+                            <br>
+                        <p aria-required="true">Check In Date</p>
+
+                        <input type="date" required name="crt_datein">
+
+
                     </div>        
                     
                     <div id="StudentSearch">
@@ -84,7 +95,7 @@
                                 <input type="submit" id="register" value="Submit" onclick="checkradio()" onsubmit="" disabled />
                                 <input type="reset" onclick="resetfocus()">
                                 <!-- <input type="button" name="submit" span="submit"></input> -->
-                                <input type="date">
+                                <!-- <input type="date"> -->
                                 <script>
                                     function manage(search){
                                         var bt = document.getElementById('register');
@@ -96,6 +107,7 @@
                                         }
                                     }
                                     
+
                                 </script>
                         </div>
                     </div>
@@ -107,7 +119,11 @@
     <script type="text/javascript" src='//cdnjs.cloudflare.com/ajax/libs/jquery/1.10.2/jquery.min.js'></script>
     <script type="text/javascript">
             
-        
+            // let today = new Date().toISOString().substr(0, 10);
+            // document.querySelector("#today").valueAsDate = new Date();
+            // $(document).ready( function() {
+            //      $('#today').val(new Date().toDateInputValue());
+            //         });​
         $('#search').keydown(function() { //when key is pressed in search bar
             var searchTerm = $(this).val(); //val of search bar
             var myExp = new RegExp(searchTerm, "i"); //regular experation
@@ -143,6 +159,14 @@
         <!-- // Student Search Engine: -->
     <script type="text/javascript" src='//cdnjs.cloudflare.com/ajax/libs/jquery/2.0.3/jquery.min.js'></script>
     <script type="text/javascript">
+        const today = new Date();
+                let dd = String(today.getDate()).padStart(2, "0");
+                let mm = String(today.getMonth() + 1).padStart(2, "0");
+                let yyyy = today.getFullYear();
+
+                let day = `${dd}/${mm}/${yyyy}`;
+
+                document.querySelector("#today").value = day;
         // $('#studentID').keyup(
             function help() { //when key is pressed in search bar
                 if (document.getElementById('studentID').value.length > 12) {
