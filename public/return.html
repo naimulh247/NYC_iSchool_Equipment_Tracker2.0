@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <link href = "https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css"
+    rel = "stylesheet">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+
+    <script src = "https://code.jquery.com/jquery-3.4.1.js"></script>
+    <script src = "https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+    <script type="text/javascript" src='./script.js'></script>
+    <link rel="stylesheet" type="text/css" href="./style.css">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Return Items</title>
+</head>
+<body>
+    <header>
+        <a href="./index.html"><img src='logo.png' id="logo"/></a>
+        <nav>
+            <ul class="nav_links">
+                <li><a href="./checkedout.html">Checked Out Items</a></li>
+                <li><a href="./history.html">Item History</a></li>
+                <li><a href="./return.html">Return Items</a></li>
+                
+                
+
+            </ul>
+        </nav>
+    
+    
+    </header>
+    <form action="" method="POST">
+        <div id="itemSearch"  >
+            <div id="wrapper">
+                <p >Item Number</p>
+        
+                    
+                <input type="search" id="search" class="customID"  name="crt_search" autofocus/>
+                    <br>
+                    <br>
+                <p >Item Name</p>
+        
+                <input type="text" class="customID" id="itemname"  name="crt_itemName" />
+                    <br>
+                    <br>
+                <p >Model</p>
+                <input type="text" id="model" class="customID"  name="crt_model"/>
+                    <br>
+                    <br>
+                <p >Replacement Cost</p>
+        
+                <input type="text" id="cost"  class="customID" />
+                <input type="submit" id="register" value="Submit" onclick="checkradio()" />
+
+
+
+
+
+            </div>    
+        <div>
+
+
+
+    </form>
+</body>
+</html>
+<script>
+    $('#search').keydown(function() { //when key is pressed in search bar
+            var searchTerm = $(this).val(); //val of search bar
+            var myExp = new RegExp(searchTerm, "i"); //regular experation
+
+            $.getJSON('/api', function(data) { //get the json file
+
+                var itemnumber = "";
+                var itemname = "";
+                var model = "";
+                var cost = "";
+                $.each(data, function(key, val) {
+                    if (val.ItemNumber.search(myExp) != -1) { //search for the data in the json file
+
+                        itemname = val.ItemName;
+                        model = val.ModelNumber;
+                        cost = val.Cost;
+
+
+
+                        
+                    }
+                }); 
+                $('#itemnumber').val(itemnumber);
+                $('#itemname').val(itemname);
+                $('#model').val(model);
+                $('#cost').val(cost);
+
+            });
+        });
+        $('form').submit(function(){
+
+                        $.ajax({
+                                async: false,
+                                method: 'POST',
+                                url: '/returned',
+                                data: $( this ).serialize(),
+                        })
+            })
+            
+
+</script>

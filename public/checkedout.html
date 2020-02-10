@@ -18,6 +18,7 @@
             <th>Item Name</th>
             <th>Model</th>
             <th>Status</th>
+            <th>Return By</th>
 
         </tr>
 
@@ -40,6 +41,7 @@
                 all_data += '<td>'+value.itemName+'</td>';
                 all_data += '<td>'+value.model+'</td>';
                 all_data += '<td>'+value.chk_status+'</td>';
+                all_data += '<td>'+value.inDate+'</td>'
             });
             $('#checked_out_item_table').append(all_data);
         })

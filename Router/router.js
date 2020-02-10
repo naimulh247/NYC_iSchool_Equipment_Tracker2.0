@@ -18,6 +18,15 @@ router.post('/', function(req, res){
 
 });
 
+router.post('/return.html', function(req, res){
+    return res.redirect('/return.html')
+
+});
+router.post('/index.html', function(req, res){
+    return res.redirect('/index.html')
+
+});
+
 function studentConnection(){
     return mysql.createConnection({
         host: 'localhost',
@@ -150,11 +159,12 @@ router.post('/checkedout', (req, res)=>{
     const itemNumber = req.body.crt_search
     const itemName = req.body.crt_itemName
     const outDate = req.body.crt_dateout
+    const model= req.body.crt_model
     const inDate = req.body.crt_datein
     const status = "Checked Out"
 
-    const queryString = "insert into StatusCheckDB.EquipmentStatus (firstName, lastName, itemName, itemNumber, chk_status, dateOut, dateIn) Value (?,?,?,?,?,?,?)"
-    statusConnection().query(queryString, [firstName, lastName, itemName, itemNumber, status, outDate, inDate], (err, results, fields)=>{
+    const queryString = "insert into StatusCheckDB.EquipmentStatus (firstName, lastName, itemName, itemNumber, model, chk_status, outDate, inDate) Value (?,?,?,?,?,?,?,?)"
+    statusConnection().query(queryString, [firstName, lastName, itemName, itemNumber, model, status, outDate, inDate], (err, results, fields)=>{
         if (err){
             console.log(err)
             console.log("failed to insert data")
@@ -173,7 +183,7 @@ router.post('/checkedin', (req, res)=>{
     const lastName = req.body.crt_last_name
     const itemNumber = req.body.crt_search
     const itemName = req.body.crt_itemName
-    const model= req.body.crt_model
+    const model = req.body.crt_model
     const status = "Checked In"
     
     // const queryString_checkedin = "delete from EquipmentStatus where (firstName="+ firstName+" And lastName="+ lastName+" And itemNumber="+ itemNumber +")"
@@ -190,6 +200,26 @@ router.post('/checkedin', (req, res)=>{
     })
 
 })
+router.post('/returned', (req, res)=>{
 
+    const itemNumber = req.body.crt_search
+    const itemName = req.body.crt_itemName
+    const model = req.body.crt_model
+    const status = "Checked In"
+    
+    // const queryString_checkedin = "delete from EquipmentStatus where (firstName="+ firstName+" And lastName="+ lastName+" And itemNumber="+ itemNumber +")"
+    const queryString_checkedin = `delete from EquipmentStatus where (itemNumber= "`+itemNumber+`")`
+    statussql.query(queryString_checkedin, (err, result, fields)=>{
+        if (err){
+            console.log(err)
+            console.log("Failed to Check In Equipment and Delete from DataBase")
+            res.sendStatus(500)
+            return
+        }
+        console.log("Successfully Checked In Equipment and deleted from DataBase??")
+        res.end()
+    })
+
+})
 
 module.exports = router
