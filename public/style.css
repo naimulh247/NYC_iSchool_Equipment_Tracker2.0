@@ -110,7 +110,15 @@ button:hover{
     
 }
 
-.iframe{
-    height: 300;
-    width: 500;
+.resp-container {
+    position: relative;
+    overflow: hidden;
+}
+.resp-iframe {
+    position: absolute;
+    top: 100;
+    left: 600;
+    width: 50%;
+    height: 100%;
+    border: 0;
 }

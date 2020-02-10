@@ -1,11 +1,25 @@
 <html>
 
 <head>
-    <script type="text/javascript" src='//cdnjs.cloudflare.com/ajax/libs/jquery/1.10.2/jquery.min.js'></script>
+    <link href = "https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css"
+    rel = "stylesheet">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+
+    <script src = "https://code.jquery.com/jquery-3.4.1.js"></script>
+    <script src = "https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
     <script type="text/javascript" src='./script.js'></script>
     <link rel="stylesheet" type="text/css" href="./style.css">
 
     <title>NYC iSchool Data Base </title>
+    <script>
+        $(function() {
+           $( "#datepicker" ).datepicker({
+            format: "mm-dd-yyyy",
+            orientation: "bottom"
+           });
+           
+        });
+     </script>
 </head>
 
 <body>
@@ -52,9 +66,9 @@
                         <input type="text" id="today" value='' name="crt_dateout">
                             <br>
                             <br>
-                        <p aria-required="true">Check In Date</p>
+                        <p >Check In Date</p>
+                        <input type = "text" id = "datepicker">
 
-                        <input type="date" required name="crt_datein">
 
 
                     </div>        
@@ -113,17 +127,21 @@
                     </div>
                     </div>
         </form>
-        <iframe src='./checkedout.html' id= "iframe"></iframe>
+        <div class="resp-constainer">
+            <iframe class="resp-iframe" src='./checkedout.html' >
+            </iframe>
+        </div>
     
 
-    <script type="text/javascript" src='//cdnjs.cloudflare.com/ajax/libs/jquery/1.10.2/jquery.min.js'></script>
+    
     <script type="text/javascript">
             
             // let today = new Date().toISOString().substr(0, 10);
             // document.querySelector("#today").valueAsDate = new Date();
-            // $(document).ready( function() {
-            //      $('#today').val(new Date().toDateInputValue());
-            //         });​
+            //  $(document).ready( function() {
+            //      $('#datepicker').datepicker();
+            // //      $('#today').val(new Date().toDateInputValue());
+            //          });​
         $('#search').keydown(function() { //when key is pressed in search bar
             var searchTerm = $(this).val(); //val of search bar
             var myExp = new RegExp(searchTerm, "i"); //regular experation
@@ -157,14 +175,14 @@
 
         </script>
         <!-- // Student Search Engine: -->
-    <script type="text/javascript" src='//cdnjs.cloudflare.com/ajax/libs/jquery/2.0.3/jquery.min.js'></script>
+    
     <script type="text/javascript">
         const today = new Date();
                 let dd = String(today.getDate()).padStart(2, "0");
                 let mm = String(today.getMonth() + 1).padStart(2, "0");
                 let yyyy = today.getFullYear();
 
-                let day = `${dd}/${mm}/${yyyy}`;
+                let day = `${mm}-${dd}-${yyyy}`;
 
                 document.querySelector("#today").value = day;
         // $('#studentID').keyup(
@@ -208,7 +226,7 @@
     </script>
 
     <!-- Changing Form action -->
-    <script type="text/javascript" src='//cdnjs.cloudflare.com/ajax/libs/jquery/1.10.2/jquery.min.js'></script>
+    
     <script type="text/javascript">
 //         (function() {
 //             $('form > input').keyup(function() {

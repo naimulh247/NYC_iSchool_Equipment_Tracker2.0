@@ -1,6 +1,8 @@
 const express = require('express');
 const mysql = require('mysql');
 const router = express.Router();
+const app = express();
+
 const sqlconnection = getConnection();
 const studentsql = studentConnection();
 const statussql = statusConnection();
@@ -11,8 +13,9 @@ const bodyParser = require('body-parser');
 
 router.use(bodyParser.urlencoded({extended:false}))
 
-router.get('/', (req, res)=>{
-    res.send('Welcome to the Home Page')
+router.post('/', function(req, res){
+    return res.redirect('/')
+
 });
 
 function studentConnection(){
