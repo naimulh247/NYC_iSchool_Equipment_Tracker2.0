@@ -104,10 +104,14 @@ button:hover{
     z-index: 0;
 }
 
+#StudentSearch{
+    margin-left:10;
+}
+
 .wrapperstudent{
     margin-top: -200px;
 
-    
+
 }
 
 .resp-container {
