@@ -52,6 +52,19 @@ function resetfocus(){
     document.getElementById('studentID').focus();
 }
 
+function changetodatepicker(){
+    document.getElementById('datepicker').focus();
+
+}
+
+
+
+
+// function submit(){
+//     document.getElementById('fill').submit();
+// }
+
+
 //  function mytest()
 // {
 //     window.location = "localhost:5000";

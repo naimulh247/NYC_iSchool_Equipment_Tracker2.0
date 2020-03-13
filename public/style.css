@@ -93,6 +93,13 @@ button:hover{
 
 }
 
+#footer {
+  position: absolute;
+  bottom: 30;
+  left: 0;
+  width: 100%;
+  height: 2.5rem;            /* Footer height */
+}
 
 
 
@@ -109,7 +116,7 @@ button:hover{
 }
 
 .wrapperstudent{
-    margin-top: -332px;
+    margin-top: -300px;
 
 
 }
@@ -125,4 +132,67 @@ button:hover{
     width: 50%;
     height: 100%;
     border: 0;
+}
+
+html, body {
+    margin: 0; height: 100%; overflow: hidden
+}
+
+@import url('https://fonts.googleapis.com/css?family=Roboto:700');
+@keyframes showTopText {
+  0% { transform: translate3d(0, 100%, 0); }
+  40%, 60% { transform: translate3d(0, 50%, 0); }
+  100% { transform: translate3d(0, 0, 0); }
+}
+@keyframes showBottomText {
+  0% { transform: translate3d(0, -100%, 0); }
+  100% { transform: translate3d(0, 0, 0); }
+}
+.animated-title {
+  color: #000000;
+  font-family: Roboto, Arial, sans-serif;
+  height: 90vmin;
+  left: 300px;
+  position: absolute;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  width: 70vmin;
+}
+.animated-title > div {
+  height: 50%;
+  overflow: hidden;
+  position: absolute;
+  width: 100%;
+}
+.animated-title > div div {
+  font-size: 20px;
+  padding: 2vmin 0;
+  position: absolute;
+}
+.animated-title > div div span {
+  display: block;
+}
+.animated-title > div.text-top {
+  border-bottom: .5vmin solid #000;
+  top: 0;
+}
+.animated-title > div.text-top div {
+  animation: showTopText 1s;
+  animation-delay: 0.5s;
+  animation-fill-mode: forwards;
+  bottom: 0;
+  transform: translate(0, 100%);
+}
+.animated-title > div.text-top div span:first-child {
+  color: #000;
+}
+.animated-title > div.text-bottom {
+  bottom: 0;
+}
+.animated-title > div.text-bottom div {
+  animation: showBottomText 0.5s;
+  animation-delay: 1.75s;
+  animation-fill-mode: forwards;
+  top: 0;
+  transform: translate(0, -100%);
 }

@@ -12,10 +12,12 @@
 
     <title>NYC iSchool Data Base </title>
     <script>
+        
         $(function() {
            $( "#datepicker" ).datepicker({
             format: "mm-dd-yyyy",
-            orientation: "bottom"
+            orientation: "bottom",
+            
            });
            
         });
@@ -46,7 +48,7 @@
                         <p >Item Number</p>
                 
                             
-                        <input type="search" id="search" class="customID" onkeyup="manage(this)" onsubmit="return false;" name="crt_search"/>
+                        <input type="search" id="search" class="customID" oninput="" onchange="naimul();changetodatepicker()" onsubmit="changetodatepicker()" name="crt_search"/>
                             <br>
                             <br>
                         <p >Item Name</p>
@@ -68,7 +70,7 @@
                             <br>
                             <br>
                         <p >Check In Date</p>
-                        <input type = "text" id = "datepicker" name="crt_datein" required>
+                        <input type = "text" id = "datepicker" onchange="manage(this)"  name="crt_datein" required>
 
 
 
@@ -114,8 +116,9 @@
                                 <script>
                                     function manage(search){
                                         var bt = document.getElementById('register');
-                                        if (search.value != ''){
+                                        if (document.getElementById('datepicker').value != ''){
                                             bt.disabled = false;
+                                            
                                         }
                                         else{
                                             bt.disabled = true;
@@ -136,42 +139,66 @@
 
     
     <script type="text/javascript">
+           
             
-            // let today = new Date().toISOString().substr(0, 10);
-            // document.querySelector("#today").valueAsDate = new Date();
-            //  $(document).ready( function() {
-            //      $('#datepicker').datepicker();
-            // //      $('#today').val(new Date().toDateInputValue());
-            //          });​
-        $('#search').keydown(function() { //when key is pressed in search bar
-            var searchTerm = $(this).val(); //val of search bar
-            var myExp = new RegExp(searchTerm, "i"); //regular experation
+        // $('#search').keydown(function() { //when key is pressed in search bar
+        //         var searchTerm = $(this).val(); //val of search bar
+        //         var myExp = new RegExp(searchTerm, "i"); //regular experation
 
-            $.getJSON('/api', function(data) { //get the json file
+        //         $.getJSON('/api', function(data) { //get the json file
 
-                var itemnumber = "";
-                var itemname = "";
-                var model = "";
-                var cost = "";
-                $.each(data, function(key, val) {
-                    if (val.ItemNumber.search(myExp) != -1) { //search for the data in the json file
+        //             var itemnumber = "";
+        //             var itemname = "";
+        //             var model = "";
+        //             var cost = "";
+        //             $.each(data, function(key, val) {
+        //                 if (val.ItemNumber.search(myExp) != -1) { //search for the data in the json file
 
-                        itemname = val.ItemName;
-                        model = val.ModelNumber;
-                        cost = val.Cost;
+        //                     itemname = val.ItemName;
+        //                     model = val.ModelNumber;
+        //                     cost = val.Cost;
 
 
 
-                        
-                    }
-                }); 
-                $('#itemnumber').val(itemnumber);
-                $('#itemname').val(itemname);
-                $('#model').val(model);
-                $('#cost').val(cost);
+                            
+        //                 }
+        //             }); 
+        //             $('#itemnumber').val(itemnumber);
+        //             $('#itemname').val(itemname);
+        //             $('#model').val(model);
+        //             $('#cost').val(cost);
 
-            });
-        });
+        //     });
+        // });
+        function naimul() { //when key is pressed in search bar
+                if (document.getElementById('search').value.length > 3) {
+                        console.log("umm Naimul is working???????")
+                        var searchTerms = $('#search').val(); //val of search bar
+                        var myExps = new RegExp(searchTerms, "i"); //regular experation
+                                $.getJSON('/api', function(data) { //get the json file
+
+                                    var itemname = "";
+                                    var model = "";
+                                    var cost = "";
+                            
+                                    $.each(data, function(key, val) {
+                                        if (val.ItemNumber.search(myExps) != -1) { //search for the data in the json file
+
+                                            itemname = val.ItemName;
+                                            model = val.ModelNumber;
+                                            cost = val.Cost;
+
+                                            
+                                        }
+                                    }); 
+                                        $('#itemname').val(itemname);
+                                        $('#model').val(model);
+                                        $('#cost').val(cost);
+                                   
+                            });
+                }
+                else{}
+        };
         
 
         </script>
@@ -229,23 +256,7 @@
     <!-- Changing Form action -->
     
     <script type="text/javascript">
-//         (function() {
-//             $('form > input').keyup(function() {
 
-//                 var empty = false;
-//                 $('form > input').each(function() {
-//                     if ($(this).val() == '') {
-//                         empty = true;
-//                     }
-//                 });
-
-//                 if (empty) {
-//                     $('#register').attr('disabled', 'disabled');
-//                 } else {
-//                     $('#register').removeAttr('disabled');
-//                 }
-//     });
-// })()
 
         function checkradio() {
             // mytest();
@@ -290,107 +301,27 @@
         
     
 
-        // function change2chkin(){
-        //     $('form').submit(function(){
-        //         $.ajax({
-        //                 async: false,
-        //                 method: 'POST',
-        //                 url: '/delete_data',
-        //                 data: $( this ).serialize(),
-        //         })
-
-        //         $.ajax({
-        //                 async: false,
-        //                 method: 'POST',
-        //                 url: '/checkedin',
-        //                 data: $( this ).serialize(),
-        //         })
-                
-        //     })
-        // }
-        // function change2chkout(){
-        //     $('form').submit(function(){
-        //         $.ajax({
-        //                 async: false,
-        //                 method: 'POST',
-        //                 url: '/create_data',
-        //                 data: $( this ).serialize(),
-        //         })
-        //         $.ajax({
-        //                 async: false,
-        //                 method: 'POST',
-        //                 url: '/checkedout',
-        //                 data: $( this ).serialize(),
-        //         })
-            
-        //     })
-        // }
         
-
-
-
-
-
-
-
-
-        // function send_data() {
-            
-        //     if  (document.getElementById('checkOut').checked == true ){
-        //         // alert("check out has been selected")
-        //         $('form').submit(function() {
-        //              $.ajax({
-        //                 async: false,
-        //                 method: 'POST',
-        //                 url: '/create_data',
-        //                 data: $( this ).serialize(),
-        //                 success: function(data){
-        //                             if(data.success == true){ // if true (1)
-        //                                 setTimeout(function(){// wait for 5 secs(2)
-        //                                         location.reload(); // then reload the page.(3)
-        //                                             }, 5000); 
-        //                                                     }
-        //                             }
-                        
-                
-        //              })
-        //              $.ajax({
-        //                 async: false,
-        //                 method: 'POST',
-        //                 url: '/checkedout',
-        //                 data: $( this ).serialize(),
-                        
-                            
-        //                      });
-        //              })
-        //              }
-        //     else if(document.getElementById('checkIn').checked== true && document.getElementById('checkOut').checked == false){
-        //                  $('form').submit(function(){
-        //                      $.ajax({
-        //                          async:false,
-        //                          method: 'POST',
-        //                          url: '/delete_data',
-        //                          data: $(this).serialize(),
-        //                      })
-        //                      $.ajax({
-        //                          async:false,
-        //                          method: 'POST',
-        //                          url: '/checkedin',
-        //                          data: $(this).serialize(),
-        //                      });
-        //                  })
-        //              }
-        //             //  else{
-        //             //      alert("Please check if the item is getting checked in or checked out");
-        //             //  }
-                    //   event.preventDefault();
-
-        //     }
 
               
         
     </script>
 
 </body>
+<!-- <footer id="footer">
+    <div class="animated-title">
+        <div class="text-top">
+        <div>
+            <span>Designed and </span>
+            <span>Coded By</span>
+        </div>
+        </div>
+        <div class="text-bottom">
+        <div>Naimul</div>
+        </div>
+    </div>
+</footer> -->
+<!-- <footer id="footer">Sticky Footer</footer> -->
+
 
 </html>
